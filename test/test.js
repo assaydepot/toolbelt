@@ -1,5 +1,5 @@
 var assert = require('assert');
-var _ = require('../index')._;
+var _ = require('../index').toolbelt;
 
 describe('objects', function() {
 	describe('#uniqueDocs(), #values()', function() {

@@ -1,0 +1,22 @@
+{
+  "author": "Ron Ranauro",
+  "name": "toolbelt",
+  "description": "Extends Underscore.js and other packages with handy methods for manipulating objects, arrays, dates, and strings.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/rranauro/toolbelt.git"
+  },
+  "dependencies": {
+    "sprintf-js": "^1.1.2",
+  },
+  "engines": {
+    "node": "*"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.4"
+  },
+  "scripts": {
+	  "test": "mocha"
+  }
+}

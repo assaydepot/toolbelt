@@ -1,5 +1,5 @@
 # toolbelt
-Handy methods for manipulating objects, arrays, dates, and strings. I use this primarily to extend [Underscore](https://underscorejs.org), a library of JavaScript utility methods which I use for most projects. For the most part, if the method I need is found in Underscore I use that. In some cases I re-wrote the Underscore method to my liking to avoid the dependency of this library on Underscore.
+Handy methods for manipulating objects, arrays, dates, and strings. I use this primarily to extend [Underscore](https://underscorejs.org), a library of JavaScript utility methods which I use for most projects. For the most part, if the method I need is found in Underscore I use that. In some cases I re-wrote the Underscore method to my liking to avoid the dependency of this library on Underscore. Many of these functions can be found in other libraries, however it can be costly to import an entire library to get access to 1 or 2 functions. In those cases, I elected to write my own and include them here.
 
 ### Collection functions Arrays or Objects
 #### uniqueDocs(docs, [idString])
@@ -85,7 +85,7 @@ Makes a copy of `obj` and lower cases all keys and values. Usefull when maninpul
 objToLower({Key: 'Some Value'});
 // => {key: 'some value'}
 ```
-### coerce(baseType, value)
+#### coerce(baseType, value)
 Force a value to a known type. `baseType` is one of *number, string, array, or boolean*. Usefule when dealing with URL string parameters where values for true and false are always truthy strings `'true'` and `'false'`.
 ```
 coerce('number', '5');
@@ -128,3 +128,73 @@ hfetch(obj, 'family.children.sister');
 hfetch(obj, 'family.mother');
 // => undefined
 ```
+### String Utilities
+Utilities for cleaning strings and calculating similarity.
+
+#### validateEmail( email )
+Returns `true` if email appears to be a valid email.
+```
+validateEmail('ron@example.com')
+// => true
+validateEmail('@example.com')
+// => false
+```
+#### hasNonAlphaNumeric( str )
+Returns true if any characters in string are not alphas or numbers.
+```
+hasNonAlphaNumeric('no!');
+// => true
+hasNonAlphaNumeric('yes');
+// => false
+```
+#### filterNonAlphaNumeric( str [,subs] )
+Replaces non-alphanumeric characters with an optional substitute string.
+```
+filterNonAlphaNumeric('no!', '-');
+// => 'no-'
+```
+#### filterNoCharCode( str )
+Removes characters with ascii codes that resolve to 0 embedded in the string.
+
+#### filterCharCodes( str )
+Trims the string and removes ascii codes > 255 embedded in the string.
+
+#### numberWithCommas( n )
+Formats a number or numeric string.
+```
+numberWithCommas( '123456' )
+// => '123,456'
+```
+#### sanitizeString( str )
+Trims a string, remove newlines, carriage returns, embedded parens and braces, punctuation, asterisks from a string.
+#### trim( str )
+Removes leading and trailing white space, newlines and carriage returns, and extra embedded white space.
+```
+trim('this   is a\nstring .  ');
+// => 'this is a string'
+```
+#### initialCaps( str )
+Capitalizes the first character of a string.
+```
+initialCapse('welcome home');
+// => 'Welcome home
+```
+#### allCaps( str )
+Capitalizes the first character of each word in a string.
+```
+allCaps('welcome home');
+// => 'Welcome Home'
+```
+#### editDistance(str1, str2)
+Returns an integer by calculating the number of changes needed to turn str1 into str2.
+```
+editDistance(abc', 'aabddc');
+// => 3
+```
+#### similarity(str1, str2)
+Returns a fraction between 0 and 1 to using the editDistance as a percentage of the longer string.
+```
+similarity( 'abc', 'aabddc');
+// => 0.5
+```
+

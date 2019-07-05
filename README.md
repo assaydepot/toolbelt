@@ -5,7 +5,7 @@ For the most part, if the method I need is found in Underscore I use that. In so
 
 Many of these functions can be found in other libraries, however it can be costly to import an entire library to get access to 1 or 2 functions. In those cases, I elected to write my own and include them here.
 
-### Collection functions Arrays or Objects
+### Collections
 #### uniqueDocs(docs [,idString])
 Return a list of unique documents by applying the key value of `idString` provided to each document. If not provided the `idString` defaults to `_id`.
 ```
@@ -50,25 +50,25 @@ Returns true if both arrays have same elements in the same order.
 identical([1, 2], [2, 1]);
 // => false
 ```
-#### intersection(list1, list2, listN)
-Returns all items in `list1` also found in `list2` to `listN1.
+#### intersection(list1, ...list2)
+Returns all items in `list1` also found in `list2` to `listN`.
 ```
 intersection([1, 2, 3], [2, 1], [1, 2]);
 // => [2, 1]
 ```
-#### intersects(list1, list2, listN)
+#### intersects(list1, ...list2)
 Returns true if all items in `list1` also found in `list2` to `listN1.
 ```
 intersects([1, 2, 3], [2, 1], [1, 2]);
 // => [2, 1]
 ```
-#### extend(destination, obj1, objN)
+#### extend(destination, ...obj1)
 Works just like `_.extend` does shallow copy of all properties in objects to the destination object. Any nested objects or arrays will be copied by reference, not duplicated. It's in-order, so the last source will override properties of the same name in previous arguments.
 ```
 extend({a: 5}, {b:6});
 // => {a:5, b:6}
 ```
-#### clean(obj [, obj1, objN])
+#### clean(obj [, ...obj1])
 Removes key/values from obj whose value === undefined, then extends the object with objects provided as arguments. 
 ```
 clean({a: 5, b: undefined});
@@ -126,12 +126,14 @@ fetch(obj, ['children', 'sister']);
 // => {brother: 3, sister: 2}
 ```
 #### hfetch(obj, 'select.string')
-Return a hierarchical property value based on the select.string. Usefull when testing existence of a value for a property
+Return a hierarchical property value based on the `select.string`. Usefull when testing existence of a value for a property.
+
+Note: Period '.' or forward slash '/' characters are valid separators.
 ```
 var obj = {family:{children:{brother: 3, sister: 2}}}
 hfetch(obj, 'family.children.brother');
 // => 3
-hfetch(obj, 'family.children.sister');
+hfetch(obj, 'family/children/sister');
 // => 2
 hfetch(obj, 'family.mother');
 // => undefined

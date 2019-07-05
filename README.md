@@ -1,6 +1,8 @@
 # toolbelt
 Handy methods for manipulating objects, arrays, dates, and strings. I use this primarily to extend [Underscore](https://underscorejs.org), a library of JavaScript utility methods which I use for most projects. 
+
 For the most part, if the method I need is found in Underscore I use that. In some cases I re-wrote the Underscore method to my liking to avoid the dependency of this library on Underscore. 
+
 Many of these functions can be found in other libraries, however it can be costly to import an entire library to get access to 1 or 2 functions. In those cases, I elected to write my own and include them here.
 
 ### Collection functions Arrays or Objects

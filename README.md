@@ -6,13 +6,13 @@ For the most part, if the method I need is found in Underscore I use that. In so
 Many of these functions can be found in other libraries, however it can be costly to import an entire library to get access to 1 or 2 functions. In those cases, I elected to write my own and include them here.
 
 ### Collection functions Arrays or Objects
-#### uniqueDocs(docs, [idString])
+#### uniqueDocs(docs [,idString])
 Return a list of unique documents by applying the key value of `idString` provided to each document. If not provided the `idString` defaults to `_id`.
 ```
 uniqueDocs([{_id:"1"}},{_id:"2"},{_id:"1"}]);
 // => [{_id:"1"}},{_id:"2"}]
 ```
-#### getIds(docs, [idString])
+#### getIds(docs [,idString])
 Return a list of unique document `ids`. The optional `idString` creates a list of unique values for any property common to all documents. The default value for `idString` is `_id`.
 ```
 getIds([{id:"1"}},{id:"2"},{id:"1"}]);
@@ -24,13 +24,13 @@ Returns an object hash keyed by the document values of `idString`. If not provid
 indexByKey([{_id:"1"}},{_id:"2"},{_id:"1"}]);
 // => {1: {_id:"1"}, 2: {_id:"2"}]
 ```
-#### filterByKey(docs1, docs2, [idString])
+#### filterByKey(docs1, docs2 [,idString])
 Remove documents in `list1` that are also found in `list2` using the value of `idString` or `_id` if not provided.
 ```
 filterByKey([{_id:"1"}},{_id:"2"}], [{_id:"1")]);
 // => [{_id:"2"}]
 ```
-#### compare(list1, list2, [idString])
+#### compare(list1, list2 [,idString])
 Returns true if all the members of array `list1` are present in array `list2`. If `idString` provided then list1 and list2 must be arrays of `objects` with `idString` properties for each index of the array.
 ```
 compare([1, 2, 3],[3, 2, 1, 4]);
@@ -113,7 +113,7 @@ pfetch(obj, 'something');
 // => undefined
 ```
 #### fetch(obj, propertyList)
-Like `pfetch` but property to search is the an array argument of multiple arguments to the function.
+Like `pfetch` but property to search is the an array argument, or multiple arguments to the function.
 ```
 var obj = {family:{children:{brother: 3, sister: 2}}}
 fetch(obj, 'mother', 'brother');
@@ -200,5 +200,64 @@ Returns a fraction between 0 and 1 to using the editDistance as a percentage of 
 ```
 similarity( 'abc', 'aabddc');
 // => 0.5
+```
+### Date Helper: likeMoment( date, timeZone )
+Create a date manipulation object.
+
+Supply `date` as a number, string, or Date() object. If no `date` is provided the object will take on today's date.
+
+If you do not supply an optional `timeZone` the object will take on the time zone of the local machine where executing. You can over-ride the time zone by including it in the `date` specification by supplying a string, i.e., '2019-07-04 EDT'. Otherwise provide the `timeZone` to over-ride the default local machine time zone.
+
+> [Moment](https://momentjs.com/) provides a powerful and universal date manipulation library. For many projects Moment increases the size of your code quite a bit. Since for many data science projects I standardize on 'YYYY-MM-DD' format for dates I need only a few light-weight methods to calculate and format dates. 
+
+> Note: Unless otherwise specified, all date values are based on time zone of local machine.
+#### valueOf()
+Just like `new Date().valueOf()`
+
+#### isValid()
+Returns `true` if the object is manipulating a valid date.
+
+#### formatYear()
+Returns 4-digit 'YYYY' value.
+
+#### recentYears(num)
+Returns current year minus `num`. String or numeric argument is supported.
+
+#### format( fmt )
+Defaults to 'YYYY-MM-DD' if no `fmt` provided. Allows `MMM DD YYYY` also.
+
+#### subtract(num, period)
+Calculates a new date value based on the supplied `num` and the `period` which can be one of: 'year', 'month', 'week', 'day', 'years', 'months', 'weeks', 'days' and modifies the value of the current object.
+
+#### diff(dateStr, period)
+Calculates the integer difference in milliseconds between `dateStr` and the value of the current object.
+
+#### today()
+Returns `true` if the value of the current object equals todays' date.
+
+```
+var myDate = likeMoment( '2019-07-04' );
+myDate.today();
+// => false
+likeMoment( '2019-07-05' ).today();
+// => true
+likeMoment( '2019-07-05' ).valueOf();
+// => 1562299200000
+likeMoment( '2019-07-05' ).formatYear();
+// => '2019'
+likeMoment().recentYear(4);
+// => '2015'
+likeMoment().format('MMM DD YYYY');
+// => 'Jul 05, 2019'
+likeMoment().subtract(1, 'year').format();
+// => '2018-07-05'
+likeMoment( '2019-07-05').subtract(1, 'day').format();
+// => '2019-07-04'
+likeMoment( '2019-07-05').subtract(1, 'day').format('MMM DD YYYY');
+// => 'Jul 04, 2019
+likeMoment( '2019-07-05').diff('2019-07-03', 'day');
+// => 2
+likeMoment( '2019-07-05').today();
+// => true
 ```
 

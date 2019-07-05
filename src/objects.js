@@ -39,9 +39,15 @@ module.exports = {
 	},
 
 	// What it does: returns true if all the members of k1 are present in k2
-	compare: function (k1, k2) {
-		let first = {};
-		let i;
+	compare: function (k1, k2, idString) {
+		var first = {};
+		var i;
+		
+		if (!!idString) {
+			k1 = module.exports.getIds(k1, idString);
+			k2 = module.exports.getIds(k2, idString);			
+		}
+		
 		for (i = 0; i < k2.length; i += 1) {
 			first[k2[i]] = true;
 		}
@@ -60,84 +66,40 @@ module.exports = {
 				if (k1[i] !== k2[i]) {
 					return false;
 				} 
-			}					
-		} else {
-			return false;
-		}
-		return true;
+			}
+			return true;				
+		} 
+		return false;
 	},
 
 	intersection: function(l1, l2) {
-		let first = {};
-		let i;
+		var first = {};
+		var i;
 		for (i = 0; i < l1.length; i += 1) {
 			first[l1[i]] = true;
 		}
 		
-		return l2.reduce(function(result, key) {
+		first = l2.reduce(function(result, key) {
 			if (!!first[key]) {
 				result.push(key);
 			}
 			return result;
-		}, []);
+		}, []);	
+		
+		if (arguments.length > 2) {
+			return module.exports.intersection.apply(null, [first].concat( Array.prototype.slice.call(arguments).slice(2)));
+		}
+		
+		return first;
+		
 	},
 	
 	intersects: function(l1, l2) {
-		let first = {};
-		let i;
-		for (i = 0; i < l1.length; i += 1) {
-			first[l1[i]] = true;
-		}
-		
-		i = 0;
-		while (i < l2.length && !first[l2[i]]) { i += 1; }
-		return (i < l2.length); 
+		return !!module.exports.intersection.apply(null, arguments).length;
 	},
 
 	keys: function(obj) {
 		return Object.keys(obj);
-	},
-	
-	coerce: function(expectedType, value) {
-		var types = {
-			'string': '',
-			'number': 0,
-			'array': [],
-			'boolean': false
-		};
-		
-		if (expectedType === 'date' && require('./core').isValidDate(value)) {
-			return value;
-		}
-		
-		if (expectedType === 'date' && !module.exports.isValidDate(value)) {
-			return (value && new Date(value)) || new Date('1970-01-01');
-		}
-		
-		if (expectedType && typeof value === 'undefined') {
-			return types[expectedType];
-		}
-		if (expectedType && typeof value !== 'undefined') {
-			if (expectedType === 'string') {
-				return (value && value.toString()) || '';						
-			}
-			if (expectedType === 'number') {
-				return isNaN( parseInt( value, 10 ) ) ? types.number : parseInt( value, 10 )
-			}
-			if (expectedType === 'array') {
-				return Array.isArray(value) ? value : [ value ];
-			}
-			if (expectedType === 'boolean') {
-				if (value === 'true') {
-					return true;
-				}
-				if (value === 'false') {
-					return false;
-				}
-				return typeof value === 'boolean' ? value : !!value;
-			}
-		}
-		return value || '';
 	},
 	
 	extend: function() {
@@ -160,7 +122,7 @@ module.exports = {
 			return [key, items[key]];
 		})
 		.filter(function(pair) {
-			return typeof pair[1] != 'undefined';
+			return typeof pair[1] !== 'undefined';
 		});
 
 		items = pairs.reduce(function(target, pair) { 
@@ -259,12 +221,54 @@ module.exports = {
 	// What it does: takes item 'p1/p2/../pN' or 'p1.p2.p3' and searches for occurence of 
 	// pN in pN-1
 	hfetch: function (o, item) {
-		var splitChar = item.split('.').length > 0 ? '.' : '/'
+		var splitChar = (item.split('.').length) > (item.split('/').length) ? '.' : '/'
 		, items = item.split(splitChar).filter(function(tag) { return !!tag; });
 
 		return items.reduce(function(found, tag) {
 			return found && found[tag];
 		}, o);
+	},
+	
+	coerce: function(expectedType, value) {
+		var types = {
+			'string': '',
+			'number': 0,
+			'array': [],
+			'boolean': false
+		};
+		
+		if (expectedType === 'date' && require('./core').isValidDate(value)) {
+			return value;
+		}
+		
+		if (expectedType === 'date' && !module.exports.isValidDate(value)) {
+			return (value && new Date(value)) || new Date('1970-01-01');
+		}
+		
+		if (expectedType && typeof value === 'undefined') {
+			return types[expectedType];
+		}
+		if (expectedType && typeof value !== 'undefined') {
+			if (expectedType === 'string') {
+				return (value && value.toString()) || '';						
+			}
+			if (expectedType === 'number') {
+				return isNaN( parseInt( value, 10 ) ) ? types.number : parseInt( value, 10 )
+			}
+			if (expectedType === 'array') {
+				return Array.isArray(value) ? value : [ value ];
+			}
+			if (expectedType === 'boolean') {
+				if (value === 'true') {
+					return true;
+				}
+				if (value === 'false') {
+					return false;
+				}
+				return typeof value === 'boolean' ? value : !!value;
+			}
+		}
+		return value || '';
 	}
 	
 };

@@ -18,8 +18,8 @@ module.exports = {
 		},'');
 	},
 
-	filterNonAlphaNumeric: function (s) {
-		return module.exports.trim(s.replace(/[^a-z0-9]/gi,'-'));
+	filterNonAlphaNumeric: function (s, subs) {
+		return module.exports.trim(s.replace(/[^a-z0-9]/gi, subs || ''));
 	},
 	
 	// base64 chokes on charCodes > 255
@@ -75,9 +75,9 @@ module.exports = {
 	// remove multiple, leading or trailing spaces
 	trim: function (s) {
 		if (s) {
+			s = s.replace(/[\n\r]/g," ");
 			s = s.replace(/(^\s*)|(\s*$)/gi,"");
 			s = s.replace(/[ ]{2,}/gi," ");
-			s = s.replace(/[\n\r]/g,"");
 			return s;				
 		}
 	},

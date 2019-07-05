@@ -30,6 +30,10 @@ describe('objects', function() {
 		it('compare', function() {	
 			assert.equal( _.compare([1, 2], [3, 2, 1]), true);
 		});
+		
+		it('compare objects', function() {	
+			assert.equal( _.compare([{id: '1'}, {id:'2'}], [{id: '1'}, {id:'2'}], 'id'), true);
+		});
 	});
 	
 	describe('#identical()', function() {		
@@ -38,9 +42,13 @@ describe('objects', function() {
 		});
 	});
 	
-	describe('#intersects()', function() {		
+	describe('#intersects(), #intersection()', function() {		
 		it('intersects', function() {	
 			assert.equal( _.intersects([1, 2], [5, 1]), true);
+		});
+		
+		it('intersection', function() {	
+			assert.equal( _.intersection([1, 2, 5], [5, 2, 1], [2]).length, 1);
 		});
 	});
 	
@@ -158,7 +166,7 @@ describe('strings', function() {
 	});
 	
 	it('#filterNonAlphaNumeric()', function() {
-		assert.equal( _.filterNonAlphaNumeric( badString ), '6--918--417--712');
+		assert.equal( _.filterNonAlphaNumeric( badString, '-' ), '6--918--417--712');
 	});
 	
 	it('#filterCharCodes()', function() {

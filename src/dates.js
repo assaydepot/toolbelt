@@ -5,7 +5,9 @@ var timeZone = new Date().toLocaleTimeString('en-us', {
 
 module.exports = {
 	isValidDate: require('./core').isValidDate,
-	likeMoment: function( dateStr ) {
+	likeMoment: function( dateStr, tZ ) {
+		tZ = (tZ || timeZone || '').toUpperCase();
+		
 		var milliseconds = {
 			day: (24 * 60 * 60 * 1000),
 			days: (24 * 60 * 60 * 1000),
@@ -18,7 +20,7 @@ module.exports = {
 		};
 		var checkPeriod = function(period) {
 			if (!milliseconds[period]) {
-				console.log('[base-utils/likeMmoment] warning: unrecognized period, using "month" - ', period);
+				console.log('[likeMmoment] warning: unrecognized period, using "month" - ', period);
 				return 'month';
 			}
 			return period;
@@ -35,9 +37,9 @@ module.exports = {
 		if (typeof dateStr === 'number') {
 			dateStr = new Date( dateStr );
 			dateStr = [dateStr.getUTCFullYear(), months[dateStr.getUTCMonth()], days[dateStr.getUTCDate()-1]].join('-')
-			theDate = new Date( dateStr + ' ' + timeZone );
+			theDate = new Date( dateStr + ' ' + tZ );
 		} else if (typeof dateStr === 'string') {
-			theDate = new Date( dateStr + ' ' + timeZone );
+			theDate = new Date( dateStr + ' ' + tZ );
 		} else if (dateStr instanceof Date) {
 			theDate = dateStr;			
 		} else {
@@ -73,13 +75,13 @@ module.exports = {
 			},
 			
 			diff: function( dateStr, period) {
-				var second = exports.likeMoment( dateStr ).valueOf();
+				var second = module.exports.likeMoment( dateStr ).valueOf();
 				var difference = this.valueOf() - second;
 				
 				return Math.round( (difference/(milliseconds[checkPeriod(period)]) ) * 100 ) / 100
 			},
 			today: function() {
-				var otherDay = exports.likeMoment().format().split('-')[2];
+				var otherDay = module.exports.likeMoment().format().split('-')[2];
 				var today = this.format().split('-')[2];
 				
 				return today === otherDay;

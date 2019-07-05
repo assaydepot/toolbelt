@@ -1,22 +1,31 @@
 {
-  "author": "Ron Ranauro",
   "name": "toolbelt",
-  "description": "Extends Underscore.js and other packages with handy methods for manipulating objects, arrays, dates, and strings.",
   "version": "1.0.0",
+  "description": "Handy methods for manipulating objects, arrays, dates, and strings. ",
   "main": "index.js",
-  "repository": {
-    "url": "https://github.com/rranauro/toolbelt.git"
+  "directories": {
+    "test": "test"
   },
-  "dependencies": {
-    "sprintf-js": "^1.1.2"
-  },
-  "engines": {
-    "node": "*"
-  },
+  "dependencies": {},
   "devDependencies": {
     "mocha": "^6.1.4"
   },
   "scripts": {
     "test": "mocha"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rranauro/toolbelt.git"
+  },
+  "keywords": [
+    "Underscore",
+    "Moment",
+    "utilities"
+  ],
+  "author": "Ron Ranauro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rranauro/toolbelt/issues"
+  },
+  "homepage": "https://github.com/rranauro/toolbelt#readme"
 }

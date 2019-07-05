@@ -28,6 +28,8 @@ indexByKey([{_id:"1"}},{_id:"2"},{_id:"1"}]);
 ```
 #### filterByKey(docs1, docs2 [,idString])
 Remove documents in `list1` that are also found in `list2` using the value of `idString` or `_id` if not provided.
+
+Use this when you have a manifest list of documents to process (docs1) and a list of already processed docs (docs2).
 ```
 filterByKey([{_id:"1"}},{_id:"2"}], [{_id:"1")]);
 // => [{_id:"2"}]
@@ -203,7 +205,7 @@ Returns a fraction between 0 and 1 to using the editDistance as a percentage of 
 similarity( 'abc', 'aabddc');
 // => 0.5
 ```
-### Date Helper: likeMoment( date, timeZone )
+### Date Helper: likeMoment( [date [,timeZone]] )
 Create a date manipulation object.
 
 Supply `date` as a number, string, or Date() object. If no `date` is provided the object will take on today's date.
@@ -213,28 +215,29 @@ If you do not supply an optional `timeZone` the object will take on the time zon
 > [Moment](https://momentjs.com/) provides a powerful and universal date manipulation library. For many projects Moment increases the size of your code quite a bit. Since for many data science projects I standardize on 'YYYY-MM-DD' format for dates I need only a few light-weight methods to calculate and format dates. 
 
 > Note: Unless otherwise specified, all date values are based on time zone of local machine.
-#### valueOf()
+#### Methods
+##### valueOf()
 Just like `new Date().valueOf()`
 
-#### isValid()
+##### isValid()
 Returns `true` if the object is manipulating a valid date.
 
-#### formatYear()
+##### formatYear()
 Returns 4-digit 'YYYY' value.
 
-#### recentYears(num)
+##### recentYears(num)
 Returns current year minus `num`. String or numeric argument is supported.
 
-#### format( fmt )
+##### format( fmt )
 Defaults to 'YYYY-MM-DD' if no `fmt` provided. Allows `MMM DD YYYY` also.
 
-#### subtract(num, period)
+##### subtract(num, period)
 Calculates a new date value based on the supplied `num` and the `period` which can be one of: 'year', 'month', 'week', 'day', 'years', 'months', 'weeks', 'days' and modifies the value of the current object.
 
-#### diff(dateStr, period)
+##### diff(dateStr, period)
 Calculates the integer difference in milliseconds between `dateStr` and the value of the current object.
 
-#### today()
+##### today()
 Returns `true` if the value of the current object equals todays' date.
 
 ```

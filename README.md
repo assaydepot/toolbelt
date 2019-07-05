@@ -264,7 +264,7 @@ likeMoment( '2019-07-05').subtract(1, 'day').format('MMM DD YYYY');
 // => 'Jul 04, 2019
 likeMoment( '2019-07-05').diff('2019-07-03', 'day');
 // => 2
-likeMoment( '2019-07-05').today();
+likeMoment().today();
 // => true
 ```
 

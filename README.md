@@ -47,7 +47,7 @@ compare([{id:"1"}},{id:"2"}], [{id:"2"}},{id:"1"}], 'id');
 #### identical(list1, list2)
 Returns true if both arrays have same elements in the same order.
 ```
-identical([1, 2], [1, 2, 3]);
+identical([1, 2], [2, 1]);
 // => false
 ```
 #### intersection(list1, list2, listN)

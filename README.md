@@ -18,8 +18,10 @@ Return a list of unique document `ids`. The optional `idString` creates a list o
 getIds([{id:"1"}},{id:"2"},{id:"1"}]);
 // => ["1", "2"]
 ```
-#### indexByKey(docs, [idString])
-Returns an object hash keyed by the document values of `idString`. If not provided the `idString` defaults to `_id`.
+#### indexByKey(docs [,idString])
+Returns an object hash keyed by the document values of `idString`. If not provided the `idString` defaults to `_id`. Use this to create lookup tables for any document property.
+
+Note: if the `idString` property is not unique, only the first document containing the property will be indexed.
 ```
 indexByKey([{_id:"1"}},{_id:"2"},{_id:"1"}]);
 // => {1: {_id:"1"}, 2: {_id:"2"}]

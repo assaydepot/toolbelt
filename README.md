@@ -116,7 +116,7 @@ pfetch(obj, 'children');
 pfetch(obj, 'something');
 // => undefined
 ```
-#### fetch(obj, propertyList)
+#### fetch(obj, ...props)
 Like `pfetch` but property to search is the an array argument, or multiple arguments to the function.
 ```
 var obj = {family:{children:{brother: 3, sister: 2}}}

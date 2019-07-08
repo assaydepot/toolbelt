@@ -19,12 +19,14 @@ module.exports = {
 	},
 	
 	indexByKey: function(docs, key) {
+		key = key || '_id';
+		
 		return docs
 		.map(function(doc) {
-			return doc[key || '_id'];
+			return doc[key];
 		})
 		.reduce(function(result, id, index, list) {
-			result[id] = result[id] || docs[list.indexOf(id)];
+			result[id] = result[id] || docs[index];
 			return result;
 		},{});
 	},

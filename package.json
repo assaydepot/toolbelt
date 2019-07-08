@@ -6,7 +6,9 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "sprintf-js": "^1.1.2"
+  },
   "devDependencies": {
     "mocha": "^6.1.4"
   },

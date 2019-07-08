@@ -101,7 +101,11 @@ module.exports = {
 	},
 
 	keys: function(obj) {
-		return Object.keys(obj);
+		return Object.keys(obj || {});
+	},
+	
+	size: function(obj) {
+		return module.exports.keys(obj).length;
 	},
 	
 	extend: function() {

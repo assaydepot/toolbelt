@@ -112,6 +112,13 @@ module.exports = {
 			return result;
 		}, arguments[0]);
 	},
+	
+	mixin: function() {
+		if (_ && typeof _.VERSION === 'string') {
+			return _.mixin.apply(_, arguments);
+		}
+		return module.exports.extend.apply(this || {}, arguments);
+	},
 
 	// What it does: removes key/values from items whose value === undefined, then extends with objects
 	// provided as arguments. Note: does not "clean" argument objects.

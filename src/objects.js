@@ -80,11 +80,11 @@ module.exports = {
 	intersection: function(l1, l2) {
 		var first = {};
 		var i;
-		for (i = 0; i < l1.length; i += 1) {
+		for (i = 0; i < (l1 || []).length; i += 1) {
 			first[l1[i]] = true;
 		}
 		
-		first = l2.reduce(function(result, key) {
+		first = (l2 || []).reduce(function(result, key) {
 			if (!!first[key]) {
 				result.push(key);
 			}

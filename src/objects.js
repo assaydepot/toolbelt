@@ -21,14 +21,17 @@ module.exports = {
 	indexByKey: function(docs, key) {
 		key = key || '_id';
 		
-		return docs
-		.map(function(doc) {
-			return doc[key];
-		})
-		.reduce(function(result, id, index, list) {
-			result[id] = result[id] || docs[index];
-			return result;
-		},{});
+		if (docs && Array.isArray(docs)) {
+			return docs
+			.map(function(doc) {
+				return doc[key];
+			})
+			.reduce(function(result, id, index, list) {
+				result[id] = result[id] || docs[index];
+				return result;
+			},{});
+		}
+		return {};
 	},
 	
 	// remove docs in docs1 that are found in docs2

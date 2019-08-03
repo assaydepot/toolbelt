@@ -27,7 +27,10 @@ module.exports = {
 				return doc[key];
 			})
 			.reduce(function(result, id, index, list) {
-				result[id] = result[id] || docs[index];
+				if (!result[id]) {
+					result[id] = [];
+				}
+				result[id].push( docs[index] );
 				return result;
 			},{});
 		}

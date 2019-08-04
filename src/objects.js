@@ -8,7 +8,9 @@ module.exports = {
 	
 	uniqueDocs: function(docs, idString) {
 		docs = module.exports.indexByKey(docs, idString);
-		return module.exports.values( docs );
+		return module.exports.values( docs ).reduce(function(result, values) {
+			return result.concat( values );
+		},[]);
 	},
 	
 	getIds: function(docs, idString) {

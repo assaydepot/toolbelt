@@ -14,10 +14,10 @@ module.exports = {
 	},
 	
 	getIds: function(docs, idString) {
-		return docs.reduce(function(result, doc) {
+		return Object.keys( docs.reduce(function(result, doc) {
 			result[doc[idString || '_id']] = true;
 			return result;
-		}, {}).keys();
+		}, {}) );
 	},
 	
 	indexByKey: function(docs, key) {

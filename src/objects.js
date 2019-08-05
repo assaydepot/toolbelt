@@ -14,10 +14,10 @@ module.exports = {
 	},
 	
 	getIds: function(docs, idString) {
-		
-		return module.exports.uniqueDocs(docs, idString).map(function(doc) {
-			return idString ? doc[idString] : doc._id;			
-		});
+		return docs.reduce(function(result, doc) {
+			result[doc[idString || '_id']] = true;
+			return result;
+		}, {}).keys();
 	},
 	
 	indexByKey: function(docs, key) {

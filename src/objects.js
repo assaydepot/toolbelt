@@ -7,10 +7,7 @@ module.exports = {
 	},
 	
 	uniqueDocs: function(docs, idString) {
-		docs = module.exports.indexByKey(docs, idString);
-		return module.exports.values( docs ).reduce(function(result, values) {
-			return result.concat( values );
-		},[]);
+		return module.exports.values( module.exports.firstIndexByKey(docs, idString) );
 	},
 	
 	getIds: function(docs, idString) {
@@ -33,6 +30,24 @@ module.exports = {
 					result[id] = [];
 				}
 				result[id].push( docs[index] );
+				return result;
+			},{});
+		}
+		return {};
+	},
+	
+	firstIndexByKey: function(docs, key) {
+		key = key || '_id';
+		
+		if (docs && Array.isArray(docs)) {
+			return docs
+			.map(function(doc) {
+				return doc[key];
+			})
+			.reduce(function(result, id, index, list) {
+				if (!result[id]) {
+					result[id] = docs[index];
+				}
 				return result;
 			},{});
 		}

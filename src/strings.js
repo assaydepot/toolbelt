@@ -52,9 +52,9 @@ module.exports = {
 		return strToTest
 	
 		// punctuation, asterisks, forward slash
-		.replace(/[.,?'":;!]/g, '')
-		.replace(/\*/g, '')
-		.replace(/\//g, '')
+		.replace(/[.,?'":;!]/g, ' ')
+		.replace(/\*/g, ' ')
+		.replace(/\//g, ' ')
 	
 		// hyphens
 		.replace(/-/g, ' ')

@@ -6,10 +6,14 @@ module.exports = {
 	flatten: function( items ) {
 		if (Array.isArray(items)) {
 			return items.reduce(function(result, item) {
-				result = result.concat( module.exports.flatten( item ) );
+				if (Array.isArray(item)) {
+					result = result.concat( module.exports.flatten( item ) );
+				} else {
+					result.push( item );
+				}
 				return result;
 			}, []);
 		}
-		return [ items ];
+		return [];
 	}
 };

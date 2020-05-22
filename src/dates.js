@@ -74,6 +74,13 @@ module.exports = {
 				return this;
 			},
 			
+			add: function(num, period) {
+				var plus = (milliseconds[checkPeriod(period)]) * num;
+			
+				theDate = new Date( theDate.valueOf() + plus );
+				return this;
+			},
+			
 			diff: function( dateStr, period) {
 				var second = module.exports.likeMoment( dateStr ).valueOf();
 				var difference = this.valueOf() - second;

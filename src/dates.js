@@ -8,6 +8,11 @@ module.exports = {
 	likeMoment: function( dateStr, tZ ) {
 		tZ = (tZ || timeZone || '').toUpperCase();
 		
+		// safari does not handle timeZone
+		if (window.navigator.userAgent.toLowerCase().indexOf('safari') !== -1) {
+			tZ = '';
+		}
+		
 		var milliseconds = {
 			day: (24 * 60 * 60 * 1000),
 			days: (24 * 60 * 60 * 1000),
@@ -37,9 +42,9 @@ module.exports = {
 		if (typeof dateStr === 'number') {
 			dateStr = new Date( dateStr );
 			dateStr = [dateStr.getUTCFullYear(), months[dateStr.getUTCMonth()], days[dateStr.getUTCDate()-1]].join('-')
-			theDate = new Date( dateStr + ' ' + tZ );
+			theDate = new Date( (dateStr + ' ' + tZ).trim() );
 		} else if (typeof dateStr === 'string') {
-			theDate = new Date( dateStr + ' ' + tZ );
+			theDate = new Date( (dateStr + ' ' + tZ).trim() );
 		} else if (dateStr instanceof Date) {
 			theDate = dateStr;			
 		} else {

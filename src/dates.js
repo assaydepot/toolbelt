@@ -9,7 +9,7 @@ module.exports = {
 		tZ = (tZ || timeZone || '').toUpperCase();
 		
 		// safari does not handle timeZone
-		if (window.navigator.userAgent.toLowerCase().indexOf('safari') !== -1) {
+		if (typeof window !== 'undefined' && window.navigator.userAgent.toLowerCase().indexOf('safari') !== -1) {
 			tZ = '';
 		}
 		

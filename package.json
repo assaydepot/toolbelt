@@ -27,7 +27,7 @@
   "author": "Ron Ranauro",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/assaydepot/toolbelt/issues"
+    "url": "git://github.com/assaydepot/toolbelt/issues"
   },
-  "homepage": "https://github.com/assaydepot/toolbelt#readme"
+  "homepage": "git://github.com/assaydepot/toolbelt#readme"
 }

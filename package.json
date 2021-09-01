@@ -1,6 +1,6 @@
 {
   "name": "toolbelt",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Handy methods for manipulating objects, arrays, dates, and strings. ",
   "main": "index.js",
   "directories": {

@@ -17,7 +17,7 @@ module.exports = {
           external: mem.external/1024000
         }
       }
-			return (require('util').inspect(process.memoryUsage().rss/1024000));
+			return (require('util').inspect(process.memoryUsage().heapUsed/1024000));
 		};
 	},
 	
